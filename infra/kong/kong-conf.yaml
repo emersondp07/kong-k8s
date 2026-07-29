@@ -1,0 +1,33 @@
+image:
+  repository: claudioed/kong-oidc-jwt
+  tag: latest
+  effectiveSemver: "2.8.1"
+
+env:
+  prefix: /kong_prefix/
+  database: "off"
+  plugins: bundled,oidc,kong-jwt2header
+
+admin:
+  enabled: true
+  http:
+    enabled: true
+    servicePort: 8001
+    containerPort: 8001
+
+postgresql:
+  enabled: false
+
+ingressController:
+  enable: true
+  installCRDs: false
+  image:
+    repository: kong/kubernetes-ingress-controller
+    tag: "2.12.5"
+
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9542"
+
+proxy:
+  type: NodePort

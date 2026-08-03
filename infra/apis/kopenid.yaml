@@ -1,14 +1,14 @@
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
-matadata:
+metadata:
   name: oidc-bets
 config:
   client_id: "kong"
-  client_secret: "qZICCtNCULQT2R3kIMMkS1MfzDBN5o4D"
+  client_secret: "yK7I2syjpc9gxuzEbvKBWqsnLyPt2HXU"
   discovery: "http://keycloak.iam/realms/bets/.well-known/openid-configuration"
-  introsprection_endpoint: "http://keycloak.iam/realms/bets/protocol/openid-connect/token/introspect"
+  introspection_endpoint: "http://keycloak.iam/realms/bets/protocol/openid-connect/token/introspect"
   bearer_only: "yes"
   bearer_jwt_auth_enable: "yes"
   bearer_jwt_auth_allowed_auds:
     - account
-  plugin: oidc
+plugin: oidc

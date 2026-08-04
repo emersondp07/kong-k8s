@@ -11,14 +11,20 @@ jobs:
   validate:
     name: Validate OpenAPI documentation
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - uses: stoplightio/spectral-action@latest
         with:
-          file_globs: "infra/apis/bets-api.yaml"
+          file_glob: "infra/apis/bets-api.yaml"
           spectral_ruleset: "infra/rules/openapi3.spectral.yaml"
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          event_name: ${{ github.event_name }}
 
   contract:
     name: Check API contract

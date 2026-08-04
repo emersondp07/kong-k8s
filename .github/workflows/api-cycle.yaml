@@ -1,0 +1,31 @@
+name: API Contract Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  validate:
+    name: Validate OpenAPI documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: stoplightio/spectral-action@latest
+        with:
+          file_globs: "infra/apis/bets-api.yaml"
+          spectral_ruleset: "infra/rules/openapi3.spectral.yaml"
+
+  contract:
+    name: Check API contract
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
